@@ -1,1 +1,1 @@
-web: python Weatherbit.py
+worker: python Weatherbit.py
