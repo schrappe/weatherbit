@@ -1,1 +1,1 @@
-worker: python Weatherbit.py
+clock: python Weatherbitschedule.py
