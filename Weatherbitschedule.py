@@ -35,7 +35,7 @@ def timed_job():
 
   headers = {'Authorization': 'Bearer ebd261f46574f3622a90d7474ff2c23c58f956209a6b59eb660b9c6233919c58','Content-type': 'application/json'}
 
-  data = '{"percent":0, "duration_ms":0}'
+  data = '{"percent":80, "duration_ms":0}'
   requests.post('https://api-http.littlebitscloud.cc/v2/devices/00e04c038e35/output', headers=headers, data=data)
 
   time.sleep(2)
