@@ -38,14 +38,14 @@ def timed_job():
     
   print('Valor da escala:',escalaPressao)
 
-headers = {'Authorization': 'Bearer ebd261f46574f3622a90d7474ff2c23c58f956209a6b59eb660b9c6233919c58','Content-type': 'application/json'}
+  headers = {'Authorization': 'Bearer ebd261f46574f3622a90d7474ff2c23c58f956209a6b59eb660b9c6233919c58','Content-type': 'application/json'}
 
-data = '{"percent":0, "duration_ms":0}'
-requests.post('https://api-http.littlebitscloud.cc/v2/devices/00e04c038e35/output', headers=headers, data=data)
+  data = '{"percent":0, "duration_ms":0}'
+  requests.post('https://api-http.littlebitscloud.cc/v2/devices/00e04c038e35/output', headers=headers, data=data)
 
-time.sleep(2)
+  time.sleep(2)
 
-data = '{"percent":'+ str(escalaPressao) + ', "duration_ms":0}'
-requests.post('https://api-http.littlebitscloud.cc/v2/devices/00e04c038e35/output', headers=headers, data=data)
+  data = '{"percent":'+ str(escalaPressao) + ', "duration_ms":0}'
+  requests.post('https://api-http.littlebitscloud.cc/v2/devices/00e04c038e35/output', headers=headers, data=data)
 
 sched.start()
