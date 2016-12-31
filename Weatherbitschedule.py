@@ -8,33 +8,28 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=10)
 def timed_job():
     
-  #! Le as condicoes do tempo em SBSP do Weather Underground usando meu token
-  #r = requests.post('http://api.wunderground.com/api/0ce78aaeec5a1a53/conditions/q/SBMT.json')
-
-  r = requests.post('http://api.wunderground.com/api/0ce78aaeec5a1a53/conditions/q/SBSP.json')
+  #! Grab snow forecast for CYYZ (Toronto Pearson Airport)
+  r = requests.post('http://api.wunderground.com/api/0ce78aaeec5a1a53/forecast/q/CYYZ.json')
 
   resp = r.json()
-  resp1 = resp['current_observation']
-  resp2 = eval(resp1['pressure_mb'])
+  resp1=resp['forecast']['simpleforecast']['forecastday'][0]['snow_allday']['cm']
 
-  print("Pressao atmosferica em Congonhas:", resp2,"hPa")
+  print("Forecasted snowfall for all day:", resp1,"cm")
 
-  #! Ajusta o servo do Cloudbits para a pressao atual, com as seguintes premissas
-  #! Escala minima = 1000
-  #! Escala maxima = 1030
+  #! Ajusta o servo do Cloudbits para a um maximo de 10 cm
+  #! Escala minima = 0
+  #! Escala maxima = 10
 
-  escalaMinima = 1000
-  escalaMaxima = 1030
-  desvio = 3 #! Devido ao servo nao ter ajuste fino na rosca
+  escalaMinima = 0
+  escalaMaxima = 10
 
-
-  escalaPressao = int(100 * (resp2 -desvio - 1000)/(escalaMaxima - escalaMinima))
+  escalaPressao = int(80 * (resp1 - escalaMinima)/(escalaMaxima - escalaMinima))
 
   if escalaPressao <= 0:
       escalaPressao = 0
 
-  if escalaPressao >= 100:
-      escalaPressao = 100
+  if escalaPressao >= 80:
+      escalaPressao = 80
     
   print('Valor da escala:',escalaPressao)
 
